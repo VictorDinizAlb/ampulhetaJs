@@ -12,21 +12,29 @@ for (let i = 0; i < tam; i++){
 topLine += filledLine + "#";
 empytLine += "#";
 
-function replaceCharacter(str, index, index2, filledLine) {
+function fillWithSand(str, index, index2, filledLine) {
     let newStr;
     newStr = str.substr(0, index) + filledLine + str.substr(str.length - index, str.length);
     // newStr = newStr.substr(0, index2)
     return newStr;
 }
 
-function lineBuilder(currentlyLine, filledLine, tam){
+function replaceCharacter(str, index, index2) {
+    let char = "#"
+    let newStr;
+    newStr = str.substr(0, index) + char + str.substr(index + char.length);
+    newStr = newStr.substr(0, index2) + char + str.substr(index2 + char.length);
+    return newStr;
+}
+
+function topSideBuilder(currentlyLine, filledLine, tam){
     let j = currentlyLine.length - 1;
     let z = 0;
-    for(let i = 1; i <= tam; i++){
+    for(let i = 1; i <= tam/2; i++){
         
         let sand = filledLine.substr(0, filledLine.length - z)
         
-        let newLine = replaceCharacter(currentlyLine, i, j-i, sand);
+        let newLine = fillWithSand(currentlyLine, i, j-i, sand);
         console.log(newLine);
 
         z = i * 2;
@@ -34,6 +42,18 @@ function lineBuilder(currentlyLine, filledLine, tam){
     // console.clear();
 }
 
+function botSideBuilder(currentlyLine, tam){
+    let j = currentlyLine.length - 1;
+    let z = tam/2;
+    for(let i = tam/2; i >= 1; i--){
+        let newLine = replaceCharacter(currentlyLine, i, j-i);
+        console.log(newLine);
+
+        z = i / 2;
+    }
+}
+
 console.log(topLine);
-lineBuilder(empytLine, filledLine, tam);
+topSideBuilder(empytLine, filledLine, tam);
+botSideBuilder(empytLine, tam);
 console.log(topLine);
