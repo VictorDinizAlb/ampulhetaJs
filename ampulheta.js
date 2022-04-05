@@ -1,51 +1,58 @@
-const tam = 20;
+var tam = 25;
 let filledLine = "";
-let topLine = "#";
-let bottomLine = "#";
+
+// as variáveis ja são iniciadas com '#' para preencher as bordas da ampulheta
+let borderLine = "#";
 let empytLine = "#";
 
+// constroi as linhas cheias e vazias
 for (let i = 0; i < tam; i++){
     filledLine += "#";
     empytLine += " ";
 }
 
-topLine += filledLine + "#";
+// preenche a borda direita da ampulheta
+borderLine += filledLine + "#";
 empytLine += "#";
 
+
+// funções para printar o primeiro estado da ampulheta
+
+//preenche as linhas com areia
 function fillWithSand(str, index, index2, filledLine) {
     let newStr;
-    newStr = str.substr(0, index) + filledLine + str.substr(str.length - index, str.length);
-    // newStr = newStr.substr(0, index2)
+    newStr = str.substring(0, index) + filledLine + str.substring(str.length - index, str.length);
     return newStr;
 }
 
+//constroi as linhas da ampulheta sem areia
 function replaceCharacter(str, index, index2) {
+
     let char = "#"
     let newStr;
-    newStr = str.substr(0, index) + char + str.substr(index + char.length);
-    newStr = newStr.substr(0, index2) + char + str.substr(index2 + char.length);
+    newStr = str.substring(0, index) + char + str.substring(index + char.length);
+    newStr = newStr.substring(0, index2) + char + str.substring(index2 + char.length);
     return newStr;
 }
 
-function topSideBuilder(currentlyLine, filledLine, tam){
+function topSide(currentlyLine, filledLine, tam){
     let j = currentlyLine.length - 1;
     let z = 0;
     for(let i = 1; i <= tam/2; i++){
         
-        let sand = filledLine.substr(0, filledLine.length - z)
+        let sand = filledLine.substring(0, filledLine.length - z)
         
         let newLine = fillWithSand(currentlyLine, i, j-i, sand);
         console.log(newLine);
 
         z = i * 2;
     }
-    // console.clear();
 }
 
-function botSideBuilder(currentlyLine, tam){
+function botSide(currentlyLine, tam){
     let j = currentlyLine.length - 1;
     let z = tam/2;
-    for(let i = tam/2; i >= 1; i--){
+    for(let i = Math.round(tam/2); i >= 1; i--){
         let newLine = replaceCharacter(currentlyLine, i, j-i);
         console.log(newLine);
 
@@ -53,7 +60,62 @@ function botSideBuilder(currentlyLine, tam){
     }
 }
 
-console.log(topLine);
-topSideBuilder(empytLine, filledLine, tam);
-botSideBuilder(empytLine, tam);
-console.log(topLine);
+// funções para imprimir o estado final da ampulheta
+
+function fillWithSand2(str, index, index2, fillingLine) {
+    let newStr;
+    newStr = str.substring(0, index) + fillingLine + str.substring(str.length - index, str.length);
+    return newStr;
+}
+
+function topSideAfter(currentlyLine, tam){
+    let j = currentlyLine.length - 1;
+    let z = 0;
+    for(let i = 1; i <= tam/2; i++){
+        let newLine = replaceCharacter(currentlyLine, i, j-i);
+        console.log(newLine);
+
+        z = i * 2;
+    }
+}
+
+function botSideAfter(currentlyLine, tam){
+    if(tam % 2 == 1){
+        sand = "#";
+        tam++;
+    } else {
+        sand = "##";
+    }
+    
+    let j = currentlyLine.length - 1;
+    let z = tam/2;
+
+    for(let i = tam/2; i >= 1; i--){
+        
+        let newLine = fillWithSand2(currentlyLine, i, j-i, sand);
+        console.log(newLine);
+
+        sand += "##"
+        z = Math.round(i / 2);
+    }
+}
+
+function initalPrint(){
+    console.log(borderLine);
+    topSide(empytLine, filledLine, tam);
+    botSide(empytLine, tam);
+    console.log(borderLine);
+}
+
+function finalPrint(){
+    console.log(borderLine);
+
+    topSideAfter(empytLine, tam);
+    botSideAfter(empytLine, tam);
+
+    console.log(borderLine);
+}
+
+initalPrint();
+console.log("\n\n");
+finalPrint();
