@@ -107,8 +107,8 @@ function initalPrint(){
     console.log(borderLine);
     topSide(empytLine, filledLine, tam);
     botSide(empytLine, tam);
-    console.log("n = ", tam);
     console.log(borderLine);
+    console.log("n = ", tam);
 }
 
 function finalPrint(){
@@ -119,6 +119,7 @@ function finalPrint(){
     console.log("n = ", tam);
 }
 
+console.log("\n---------- Estado inicial da ampulheta----------\n")
 initalPrint();
-console.log("\n\n");
+console.log("\n---------- Estado final da ampulheta ---------\n");
 finalPrint();
