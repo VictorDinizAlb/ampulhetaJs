@@ -1,7 +1,16 @@
 // pacote para ler input no console
 var readlineSync = require('readline-sync');
 
-var tam = readlineSync.question('Digite o tamanho da ampulheta. Ex: 20\n');
+function getTam(){
+    let tam = readlineSync.question('Digite o tamanho da ampulheta. Ex: 20\n')
+
+    while(tam < 20){
+        tam = readlineSync.question('O valor deve ser maior ou igual a 20.\n')
+    }
+    return tam;
+}
+
+var tam = getTam();
 let filledLine = "";
 
 // as variáveis ja são iniciadas com '#' para preencher as bordas da ampulheta
